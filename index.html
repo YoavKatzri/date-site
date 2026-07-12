@@ -1,58 +1,104 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hebrew Dating Site</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            direction: rtl;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #0079c1;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            color: white;
-            background-color: #25d366;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.8em;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💕 A Special Question For You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <h1>ברוכים הבאים לאתר ההיכרויות!</h1>
-    </header>
-    <div class="container">
-        <h2>מצא את אהבתך</h2>
-        <p>הירשם לאתר שלנו כדי להתחיל לחפש את הנפש התאומה שלך.</p>
-        <a href="https://wa.me/your_phone_number" class="button">צור קשר בוואטסאפ</a>
+
+  <!-- Floating hearts background -->
+  <div class="hearts-bg" id="hearts-bg"></div>
+
+  <!-- PAGE 1: Will you go on a date with me? -->
+  <div class="page active" id="page-1">
+    <div class="card">
+      <div class="emoji-big">🌹</div>
+      <h1>Hey you...</h1>
+      <p class="subtitle">I have something important to ask you</p>
+      <h2 class="question">Will you go on a date with me?</h2>
+      <div class="btn-group" id="page1-buttons">
+        <button class="btn btn-yes" id="yes-btn" onclick="goToPage2()">
+          Yes! 💕
+        </button>
+        <button class="btn btn-no" id="no-btn" onmouseover="runAway(this)" ontouchstart="runAway(this)">
+          No
+        </button>
+      </div>
+      <p class="hint" id="no-hint"></p>
     </div>
-    <footer>
-        <p>© 2026, אתר ההיכרויות</p>
-    </footer>
+  </div>
+
+  <!-- PAGE 2: What kind of date? -->
+  <div class="page" id="page-2">
+    <div class="card">
+      <div class="emoji-big">✨</div>
+      <h1>Yay! 🎉</h1>
+      <p class="subtitle">I'm so excited! Now tell me...</p>
+      <h2 class="question">What kind of date would you prefer?</h2>
+      <div class="choice-grid">
+        <button class="choice-btn" onclick="selectType('restaurant')" id="choice-restaurant">
+          🍽️
+          <span>Fancy Restaurant</span>
+          <small>Candlelight & fine dining</small>
+        </button>
+        <button class="choice-btn" onclick="selectType('movie')" id="choice-movie">
+          🎬
+          <span>Movie Night</span>
+          <small>Popcorn & a great film</small>
+        </button>
+        <button class="choice-btn" onclick="selectType('bar')" id="choice-bar">
+          🍸
+          <span>Cozy Bar</span>
+          <small>Good vibes & cocktails</small>
+        </button>
+      </div>
+      <button class="btn btn-next" id="next-to-3" onclick="goToPage3()" style="display:none">
+        Next →
+      </button>
+    </div>
+  </div>
+
+  <!-- PAGE 3: Pick a day & time -->
+  <div class="page" id="page-3">
+    <div class="card wide">
+      <div class="emoji-big">📅</div>
+      <h1>Perfect choice! 💖</h1>
+      <p class="subtitle">When works best for you?</p>
+
+      <h3 class="section-label">Pick a day</h3>
+      <div class="days-grid" id="days-grid"></div>
+
+      <h3 class="section-label">Pick a time</h3>
+      <div class="times-grid">
+        <button class="time-btn" onclick="selectTime(this)" data-time="12:00">12:00 PM</button>
+        <button class="time-btn" onclick="selectTime(this)" data-time="14:00">2:00 PM</button>
+        <button class="time-btn" onclick="selectTime(this)" data-time="17:00">5:00 PM</button>
+        <button class="time-btn" onclick="selectTime(this)" data-time="19:00">7:00 PM</button>
+        <button class="time-btn" onclick="selectTime(this)" data-time="20:00">8:00 PM</button>
+        <button class="time-btn" onclick="selectTime(this)" data-time="21:00">9:00 PM</button>
+      </div>
+
+      <button class="btn btn-confirm" id="confirm-btn" onclick="confirm()" style="display:none">
+        It's a Date! 💕
+      </button>
+    </div>
+  </div>
+
+  <!-- PAGE 4: Confirmation -->
+  <div class="page" id="page-4">
+    <div class="card">
+      <div class="emoji-big animated-heart">💖</div>
+      <h1>It's official!</h1>
+      <div class="summary-box" id="summary-box"></div>
+      <p class="closing">Can't wait to see you 🥰</p>
+      <div class="confetti-trigger" id="confetti-area"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
